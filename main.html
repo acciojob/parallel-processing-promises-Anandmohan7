@@ -1,38 +1,120 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OTP Verification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f8f9fb;
+    }
 
-  <body>
-    <!-- Loading Spinner -->
-    <div id="loading" style="display:none;">Loading...</div>
-    
-    <!-- Error Message -->
-    <div id="error" style="color:red;"></div>
-    
-    <!-- Output Images -->
-    <div id="output"></div>
+    .card {
+      background: #fff;
+      padding: 40px;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+    }
 
-    <script type="text/javascript" src="./script.js"></script>
-  </body>
-</html>
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+    #verification_heading {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-  <body>
-    <!-- Loading Spinner -->
-    <div id="loading" style="display:none;">Loading...</div>
-    
-    <!-- Error Message -->
-    <div id="error" style="color:red;"></div>
-    
-    <!-- Output Images -->
-    <div id="output"></div>
+    #verification_subtext {
+      font-size: 15px;
+      color: #444;
+      margin-bottom: 25px;
+    }
 
-    <script type="text/javascript" src="./script.js"></script>
-  </body>
+    .code-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .code {
+      width: 60px;
+      height: 70px;
+      text-align: center;
+      font-size: 32px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s ease-in-out;
+    }
+
+    .code:focus {
+      border-color: #000;
+    }
+
+    .note {
+      background: #eee;
+      color: #555;
+      font-size: 14px;
+      padding: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1 id="verification_heading">Verify Your Account</h1>
+    <p id="verification_subtext">
+      We emailed you the six digit code to <b>acciojob@email.com</b>.
+      Enter the code below to confirm your email address.
+    </p>
+
+    <div class="code-container">
+      <input type="text" maxlength="1" class="code" />
+      <input type="text" maxlength="1" class="code" />
+      <input type="text" maxlength="1" class="code" />
+      <input type="text" maxlength="1" class="code" />
+      <input type="text" maxlength="1" class="code" />
+      <input type="text" maxlength="1" class="code" />
+    </div>
+
+    <div class="note">
+      This is design only. We didn't actually send you an email as we
+      don't have your email, right?
+    </div>
+  </div>
+
+  <script>
+    const inputs = document.querySelectorAll('.code');
+
+    inputs.forEach((input, index) => {
+      input.addEventListener('input', (e) => {
+        const value = e.target.value;
+        if (value && index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace') {
+          if (input.value === '' && index > 0) {
+            inputs[index - 1].focus();
+            inputs[index - 1].value = '';
+          } else {
+            input.value = '';
+          }
+        }
+      });
+    });
+
+    // Auto-focus first input on load
+    inputs[0].focus();
+  </script>
+</body>
 </html>
